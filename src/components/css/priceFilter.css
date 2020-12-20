@@ -1,0 +1,16 @@
+.form-head {
+  border: 1px solid black;
+  padding: 12px 0px 5px;
+}
+
+.my-form-check {
+  margin: 10px 35px;
+  /* position: relative; */
+  display: block;
+  /* padding-left: 1.25rem; */
+}
+
+.form-head p {
+  font-size: 16px;
+  margin: 0px 20px;
+}

@@ -1,0 +1,22 @@
+@media screen and (max-width: 700px) {
+  .col-4 {
+    display: none !important;
+  }
+}
+.main_row {
+  width: 100%;
+}
+
+._body h6 {
+  margin-bottom: 20px;
+}
+
+.mycolB {
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+  position: relative;
+  width: 100%;
+  /* padding-right: 15px; */
+  padding-left: 30px;
+}

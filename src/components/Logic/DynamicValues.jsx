@@ -1,0 +1,12 @@
+export const CITY = "City";
+export const HOTEL = "Hotel";
+export const SEARCH = "SEARCH";
+export const FILTERS = "FILTERS";
+export const HOTELLIST = "LIST OF HOTELS";
+export const BOOK = "BOOK NOW";
+export const CURRENCY = "₹";
+export const PRICE = "PRICE";
+export const SITETITLE = "React Hotel App";
+export const COPYRIGHT = "©";
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";

@@ -1,0 +1,69 @@
+.header {
+  /* Bg Image */
+  background-image: url(../img/header.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  height: 300px;
+
+  /* Bg Blur
+  filter: blur(1px);
+  -webkit-filter: blur(1px); */
+
+  /* Border */
+  border-radius: 5px;
+  width: 100%;
+}
+.col {
+  position: relative;
+  top: 130px;
+}
+
+.col select {
+  width: 200px;
+  height: 40px;
+  padding: 0px 8px;
+  border-radius: 5px;
+  background-color: #04bdc4;
+  color: whitesmoke;
+  box-shadow: 1px 1px 8px rgba(121, 120, 120, 0.349);
+  transition: background-color 0.5s;
+  border: none;
+  outline: none;
+  font-weight: bold;
+}
+
+.col select:hover {
+  background-color: #02aab0;
+}
+
+.col option {
+  background-color: #02aab0;
+  font-weight: bold;
+  border: none;
+  outline: none;
+}
+
+.btnn {
+  width: 120px;
+  height: 40px;
+  padding: 0px 5px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  background-color: #ee7680;
+  transition: background-color 0.5s;
+  color: whitesmoke;
+  outline: none;
+  font-weight: bold;
+}
+
+.btnn:hover {
+  background-color: #d66d75;
+  border: none;
+  outline: none;
+}
+
+.btnn:focus {
+  outline: none;
+}
