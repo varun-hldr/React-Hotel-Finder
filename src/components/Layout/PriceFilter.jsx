@@ -37,7 +37,7 @@ export default class PriceFilter extends Component {
           type="checkbox"
           value={less}
           checked={
-            searched ? false : this.state.selectedOption == less ? true : false
+            searched ? false : this.state.selectedOption === less ? true : false
           }
         />
         <label className="form-check-label">{`Rs.${less} to Rs.${high}`}</label>

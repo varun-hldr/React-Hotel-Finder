@@ -48,7 +48,7 @@ export const dropDownElementCreator = (
     >
       <option>--Select {name}--</option>
       {hotels.map((hotel, index) => {
-        if (hotel.city_name == stateCity) {
+        if (hotel.city_name === stateCity) {
           if (name === "Hotel")
             return (
               <option key={index} value={hotel.name}>
@@ -70,7 +70,7 @@ export const dropDownElementCreator = (
 
 export const searchHandler = (e, hotels, parentCallback, city) => {
   const updatedData = hotels.filter((data) => {
-    if (data.city_name == city) {
+    if (data.city_name === city) {
       return data;
     }
   });

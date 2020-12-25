@@ -48,7 +48,7 @@ class Header extends Component {
     );
   }
   onChangeHandler = (e) => {
-    if (e.target.name == CITY) {
+    if (e.target.name === CITY) {
       this.setState({
         city: e.target.value,
         check: false,
