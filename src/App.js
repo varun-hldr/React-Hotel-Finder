@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import { NavBar, Header, BodyArea, Footer } from "./components/Layout";
+import { NavBar, Header, BodyArea, Footer, Booking } from "./components/Layout";
 import Loader from "./components/Loader/Loader";
 
 const curl = "https://developerfunnel.herokuapp.com/hotellist/1";
@@ -21,17 +22,32 @@ class App extends Component {
   };
   render() {
     return (
-      <div className="App">
-        <NavBar
-          {...this.state}
-          onLogin={this.handleIsLoggedIn}
-          setformData={this.handleUserDetails}
-        />
-        <div className="container-lg">
-          {this.headerBody(this.state.isLoaded)}
+      <Router>
+        <div className="App">
+          <NavBar
+            {...this.state}
+            onLogin={this.handleIsLoggedIn}
+            setformData={this.handleUserDetails}
+          />
+          {this.state.isLoaded ? (
+            <Switch>
+              <Route exact path="/">
+                <Header {...this.state} parentCallback={this.handleCallback} />
+                <BodyArea
+                  {...this.state}
+                  parentCallback={this.handleCallback}
+                />
+              </Route>
+              <Route path="/booking">
+                <Booking {...this.state} />
+              </Route>
+            </Switch>
+          ) : (
+            <Loader />
+          )}
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </Router>
     );
   }
   componentDidMount() {
@@ -86,20 +102,6 @@ class App extends Component {
       });
     }
   };
-
-  headerBody(isLoaded) {
-    if (!isLoaded) {
-      return <Loader />;
-    }
-    if (isLoaded) {
-      return (
-        <React.Fragment>
-          <Header {...this.state} parentCallback={this.handleCallback} />
-          <BodyArea {...this.state} parentCallback={this.handleCallback} />
-        </React.Fragment>
-      );
-    }
-  }
 }
 
 export default App;

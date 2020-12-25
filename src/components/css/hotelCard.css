@@ -74,4 +74,14 @@
 .button_div .btn {
   height: 40px;
   margin-right: 40px;
+  background-color: teal;
+}
+
+.button_div a {
+  color: #fff;
+}
+
+.button_div a:hover {
+  color: whitesmoke;
+  text-decoration: none;
 }

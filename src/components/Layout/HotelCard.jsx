@@ -1,7 +1,11 @@
 import "../css/hotelCard.css";
 import { BOOK, CURRENCY } from "../Logic/DynamicValues";
+import { Link } from "react-router-dom";
 
 const HotelCard = (hotel, index) => {
+  const onClickButton = (hotelData) => {
+    localStorage.setItem("hotelData", JSON.stringify(hotelData));
+  };
   return (
     <div key={index} className="mycard">
       <div className="myrow">
@@ -18,8 +22,12 @@ const HotelCard = (hotel, index) => {
               {CURRENCY}
               {hotel.cost}
             </h5>
-            <button type="button" className="btn btn-info">
-              {BOOK}
+            <button
+              onClick={(e) => onClickButton(hotel)}
+              type="button"
+              className="btn btn-info"
+            >
+              <Link to="/booking">{BOOK}</Link>
             </button>
           </div>
         </div>

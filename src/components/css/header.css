@@ -24,7 +24,7 @@
   height: 40px;
   padding: 0px 8px;
   border-radius: 5px;
-  background-color: #04bdc4;
+  background-color: teal;
   color: whitesmoke;
   box-shadow: 1px 1px 8px rgba(121, 120, 120, 0.349);
   transition: background-color 0.5s;
@@ -34,11 +34,11 @@
 }
 
 .col select:hover {
-  background-color: #02aab0;
+  background-color: #04bdc4;
 }
 
 .col option {
-  background-color: #02aab0;
+  background-color: #04bdc4;
   font-weight: bold;
   border: none;
   outline: none;

@@ -1,0 +1,8 @@
+.navbar-brand a {
+  color: teal;
+}
+
+.navbar-brand a:hover {
+  color: teal;
+  text-decoration: none;
+}
