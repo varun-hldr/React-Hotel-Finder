@@ -54,7 +54,7 @@ export default class Dashboard extends Component {
             className={
               status === "Pending" ? "btn btn-warning" : "btn btn-info"
             }
-            name={start}
+            name={hotel}
             value={status}
           >
             {status}
@@ -63,7 +63,7 @@ export default class Dashboard extends Component {
             onClick={this.props.setCompleted}
             type="button"
             className="btn btn-danger ml-2"
-            name={start}
+            name={hotel}
             value="Delete"
           >
             Delete

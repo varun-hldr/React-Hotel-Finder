@@ -36,7 +36,7 @@ class App extends Component {
     const { value, name } = e.target;
     if (value === "Pending") {
       const elementsIndex = this.state.dummyData.findIndex(
-        (element) => element.StartDate === name
+        (element) => element.hotelName === name
       );
       let newArray = [...this.state.dummyData];
       newArray[elementsIndex] = {
@@ -49,7 +49,7 @@ class App extends Component {
     }
     if (value === "Delete") {
       const newArray = this.state.dummyData.filter((data) => {
-        if (data.StartDate !== name) {
+        if (data.hotelName !== name) {
           return data;
         }
       });
