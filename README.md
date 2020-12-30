@@ -1,8 +1,8 @@
 # React Hotel Finder App
 
-Dear Sir/Mam,
+## Live Demo App
 
-Before talking about the App I, want to clear out something, To be very honest I was having trouble  fetching the JWT,  Before I started working on this App, I might have missed something I don't know what's the reason. So I decided to work with Local Storage and Session Storage. 
+[App Link](http://react-hotel-finder.herokuapp.com/)
 
 ## Video Introduction
 
