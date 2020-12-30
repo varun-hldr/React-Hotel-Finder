@@ -23,7 +23,7 @@ const BodyArea = (props, parentCallback) => {
           </h6>
           <div className="row">
             {hotels.map((hotel, index) => {
-              return HotelCard(hotel, index);
+              return HotelCard(hotel, index, props.isLoggedIn);
             })}
           </div>
         </div>

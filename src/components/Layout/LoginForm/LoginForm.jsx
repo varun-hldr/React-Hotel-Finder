@@ -4,60 +4,92 @@ import onSignup from "./onSignup";
 
 export default class LoginForm extends Component {
   state = {
-    formData: {
+    signUpformData: {
       name: "",
       email: "",
       password: "",
     },
+    loginformData: {
+      email: "",
+      password: "",
+    },
+    text: "",
     signUp: false,
   };
 
   render() {
     return (
       <div>
+        <h5>{this.state.text}</h5>
         {this.state.signUp
-          ? onSignup(this.onSubmit, this.onChange, this.setSignUp)
-          : onLogin(this.onSubmit, this.onChange, this.setSignUp)}
+          ? onSignup(this.onSubmit, this.onChangeSignup, this.setSignUp)
+          : onLogin(this.onSubmit, this.onChangeLogin, this.setSignUp)}
       </div>
     );
   }
+
   setSignUp = (check) => {
     this.setState({
       signUp: check,
+      signUpformData: {
+        name: "",
+        email: "",
+        password: "",
+      },
     });
   };
-  onChange = (e) => {
+
+  onChangeLogin = (e) => {
     this.setState({
-      formData: {
-        ...this.state.formData,
+      loginformData: {
+        ...this.state.loginformData,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+  onChangeSignup = (e) => {
+    this.setState({
+      signUpformData: {
+        ...this.state.signUpformData,
         [e.target.name]: e.target.value,
       },
     });
   };
   onSubmit = (e) => {
-    const { onHide, setformData, userData, onLogin } = this.props;
-    const { formData } = this.state;
+    const data = JSON.parse(localStorage.getItem("signUpData"));
+    const { onHide, onLogin, setAdminLoggin, Admin } = this.props;
+    const { signUpformData, loginformData } = this.state;
     e.preventDefault();
     if (e.target.name === "login") {
       if (
-        userData.email === formData.email &&
-        userData.password === formData.password
+        loginformData.email === Admin.email &&
+        loginformData.password === Admin.password
       ) {
         onHide(true);
         onLogin(true);
+        sessionStorage.setItem("userName", JSON.stringify(loginformData));
+        setAdminLoggin(true);
       } else {
+        if (
+          data.email === loginformData.email &&
+          data.password === loginformData.password
+        ) {
+          sessionStorage.setItem("userName", JSON.stringify(loginformData));
+          this.setState({
+            text: "",
+          });
+          onHide(true);
+          onLogin(true);
+        } else {
+          this.setState({
+            text: "Invalid email and password",
+          });
+        }
       }
     }
     if (e.target.name === "signup") {
+      localStorage.setItem("signUpData", JSON.stringify(signUpformData));
       this.setSignUp(false);
-      setformData(this.state.formData);
-      this.setState({
-        formData: {
-          name: "",
-          email: "",
-          password: "",
-        },
-      });
       onHide(true);
     }
   };

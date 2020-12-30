@@ -1,12 +1,12 @@
 import React from "react";
 
-const onSignup = (onSubmit, onChange, setSignUp) => {
+const onSignup = (onSubmit, onChangeSignup, setSignUp) => {
   return (
     <form>
       <div className="mb-3">
         <label className="form-label">Your Full Name</label>
         <input
-          onChange={(e) => onChange(e)}
+          onChange={(e) => onChangeSignup(e)}
           name="name"
           type="text"
           className="form-control"
@@ -15,7 +15,7 @@ const onSignup = (onSubmit, onChange, setSignUp) => {
       <div className="mb-3">
         <label className="form-label">Email address</label>
         <input
-          onChange={(e) => onChange(e)}
+          onChange={(e) => onChangeSignup(e)}
           name="email"
           type="email"
           className="form-control"
@@ -27,7 +27,7 @@ const onSignup = (onSubmit, onChange, setSignUp) => {
       <div className="mb-3">
         <label className="form-label">Password</label>
         <input
-          onChange={(e) => onChange(e)}
+          onChange={(e) => onChangeSignup(e)}
           name="password"
           type="password"
           className="form-control"

@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import LoginForm from "./LoginForm";
 
 const LoginModel = (props) => {
-  const { show, onHide } = props;
+  const { show, onHide, setAdminLoggin } = props;
   return (
     <Modal
       show={show}
@@ -18,7 +18,7 @@ const LoginModel = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <LoginForm {...props} />
+        <LoginForm {...props} setAdminLoggin={setAdminLoggin} />
       </Modal.Body>
     </Modal>
   );
