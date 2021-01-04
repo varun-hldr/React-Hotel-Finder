@@ -6,12 +6,11 @@ import LoginModel from "./LoginForm/LoginModel";
 import "../css/navbar.css";
 
 const NavBar = (props) => {
-  const userData = JSON.parse(localStorage.getItem("signUpData"));
   const [modalShow, setModalShow] = React.useState(false);
-  const { onLogin, isLoggedIn, setAdminLoggin, Admin } = props;
-  const loginData = JSON.parse(sessionStorage.getItem("userName"));
-  const validateName = (Admin, userData, loginData) => {
-    if (loginData.email == Admin.email) {
+  const { onLogin, isLoggedIn, setAdminLoggin, userData } = props;
+
+  const validateName = () => {
+    if (userData.user === "admin") {
       return (
         <div>
           <Link
@@ -29,12 +28,12 @@ const NavBar = (props) => {
             Dashboard
           </Link>
           <button className="btn btn btn-light text-uppercase" disabled>
-            Welcome <b>{Admin.name}</b>
+            Welcome <b>{userData.name}</b>
           </button>
         </div>
       );
     }
-    if (loginData.email == userData.email) {
+    if (userData.user === "user") {
       return (
         <div>
           <Link
@@ -60,7 +59,7 @@ const NavBar = (props) => {
         </span>
 
         <form className="d-flex">
-          {isLoggedIn ? validateName(Admin, userData, loginData) : null}
+          {isLoggedIn ? validateName() : null}
           {isLoggedIn
             ? AuthButton(setModalShow, onLogin, LOGOUT, false)
             : AuthButton(setModalShow, onLogin, LOGIN, true)}

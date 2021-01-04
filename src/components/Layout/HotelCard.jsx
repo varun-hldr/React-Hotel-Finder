@@ -3,15 +3,12 @@ import { BOOK, CURRENCY } from "../Logic/DynamicValues";
 import { Link } from "react-router-dom";
 import "../css/hotelCard.css";
 
-const HotelCard = (hotel, index, isLoggedIn) => {
-  const onClickButton = (hotelData) => {
-    sessionStorage.setItem("hotelData", JSON.stringify(hotelData));
-  };
+const HotelCard = (hotel, index, isLoggedIn, hotelCallback) => {
   const buttonValidation = (isLoggedIn) => {
     if (isLoggedIn) {
       return (
         <button
-          onClick={(e) => onClickButton(hotel)}
+          onClick={(e) => hotelCallback(hotel)}
           type="button"
           className="btn btn-info"
         >

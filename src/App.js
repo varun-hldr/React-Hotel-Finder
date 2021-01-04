@@ -15,49 +15,10 @@ class App extends Component {
     searched: false,
     hotels: [],
     updatedHotel: [],
-    bookingData: {},
-    Admin: {
-      name: "Admin",
-      email: "varun@123",
-      password: "12345",
-    },
-    dummyData: [
-      {
-        userName: "Rahul",
-        hotelName: "Hometel Chandigarh",
-        cost: 2419,
-        StartDate: "2020-12-27",
-        EndDate: "2021-1-2",
-        status: "Pending",
-      },
-    ],
+    hotel: [],
+    userData: {},
   };
-  setCompleted = (e) => {
-    const { value, name } = e.target;
-    if (value === "Pending") {
-      const elementsIndex = this.state.dummyData.findIndex(
-        (element) => element.hotelName === name
-      );
-      let newArray = [...this.state.dummyData];
-      newArray[elementsIndex] = {
-        ...newArray[elementsIndex],
-        status: "Completed",
-      };
-      this.setState({
-        dummyData: newArray,
-      });
-    }
-    if (value === "Delete") {
-      const newArray = this.state.dummyData.filter((data) => {
-        if (data.hotelName !== name) {
-          return data;
-        }
-      });
-      this.setState({
-        dummyData: newArray,
-      });
-    }
-  };
+
   componentDidMount() {
     fetch(curl)
       .then((res) => res.json())
@@ -78,12 +39,12 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.dummyData);
     return (
       <Router>
         <div className="App">
           <Layout.NavBar
             {...this.state}
+            setUserData={this.setUserData}
             onLogin={this.handleIsLoggedIn}
             setAdminLoggin={this.setAdminLoggin}
           />
@@ -98,20 +59,14 @@ class App extends Component {
                   <Layout.BodyArea
                     {...this.state}
                     parentCallback={this.handleCallback}
+                    hotelCallback={this.setSelectedHotel}
                   />
                 </Route>
                 <Route path="/booking">
-                  <Layout.Booking
-                    {...this.state}
-                    setBookingData={this.setBookingData}
-                    showBooking={this.showBooking}
-                  />
+                  <Layout.Booking {...this.state} />
                 </Route>
                 <Route path="/dashboard">
-                  <Layout.Dashboard
-                    {...this.state}
-                    setCompleted={this.setCompleted}
-                  />
+                  <Layout.Dashboard {...this.state} />
                 </Route>
                 <Route path="/view-booking">
                   <Layout.ViewBooking {...this.state} />
@@ -127,13 +82,7 @@ class App extends Component {
     );
   }
 
-  setBookingData = (booking) => {
-    if (booking.userName !== "" && booking.StartDate !== "") {
-      this.setState({
-        dummyData: [...this.state.dummyData, booking],
-      });
-    }
-  };
+  // Navbar Functions Start Here
 
   setAdminLoggin = (check) => {
     if (check) {
@@ -159,6 +108,16 @@ class App extends Component {
     }
   };
 
+  setUserData = (data) => {
+    this.setState({
+      userData: data,
+    });
+  };
+
+  // NAvbar functions End Here
+
+  // Header & Bodyarea functions Start Here
+
   handleCallback = (childData, searched) => {
     if (childData) {
       this.setState({
@@ -175,6 +134,13 @@ class App extends Component {
       });
     }
   };
+
+  setSelectedHotel = (hotel) => {
+    this.setState({
+      hotel: hotel,
+    });
+  };
+  // Header & Bodyarea functions End Here
 }
 
 export default App;

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "../css/booking.css";
 
 export default class Booking extends Component {
@@ -17,7 +18,7 @@ export default class Booking extends Component {
   };
 
   render() {
-    const hotel = JSON.parse(sessionStorage.getItem("hotelData"));
+    const { hotel } = this.props;
     return (
       <div className="container-fluid booking">
         <div className="myBookingCard">
@@ -93,24 +94,14 @@ export default class Booking extends Component {
     );
   }
   onSubmit = (e) => {
-    const { setBookingData } = this.props;
-    e.preventDefault();
-    setBookingData(this.state.bookingData);
-    // sessionStorage.setItem("bookingData", booking);
-    // const data = this.state.bookingData;
-    // let newData = "";
-    // const completeData = JSON.parse(sessionStorage.getItem("completeData"));
-    // if (completeData === null) {
-    //   newData = [data];
-    // } else {
-    //   newData = [...completeData, data];
-    //   showBooking();
-    // }
-    // sessionStorage.setItem("completeData", JSON.stringify(newData));
+    axios.post(
+      "https://hotel-json-server.herokuapp.com/booking",
+      this.state.bookingData
+    );
   };
 
   onChangeHandler = (e, value, hotel) => {
-    const userData = JSON.parse(localStorage.getItem("signUpData"));
+    const { userData } = this.props;
     this.setState({
       bookingData: {
         ...this.state.bookingData,

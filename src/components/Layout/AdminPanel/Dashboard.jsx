@@ -1,11 +1,27 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 export default class Dashboard extends Component {
+  state = {
+    dummyData: [],
+    isLoadded: false,
+  };
+
+  componentDidMount = () => {
+    axios
+      .get("https://hotel-json-server.herokuapp.com/booking")
+      .then((response) => {
+        this.setState({
+          dummyData: response.data,
+          isLoadded: true,
+        });
+      });
+  };
   render() {
-    const adminData = JSON.parse(sessionStorage.getItem("userName"));
+    const { userData } = this.props;
     return (
       <div className="container-fluid">
-        {adminData.email === this.props.Admin.email && this.props.isLoggedIn ? (
+        {userData.user === "admin" && this.props.isLoggedIn ? (
           <table className="table table-hover text-uppercase">
             <thead>
               <tr>
@@ -18,9 +34,9 @@ export default class Dashboard extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.dummyData.map((data, index) => {
+              {this.state.dummyData.map((data) => {
                 return this.makeTable(
-                  index,
+                  data.id,
                   data.userName,
                   data.hotelName,
                   data.cost,
@@ -37,6 +53,32 @@ export default class Dashboard extends Component {
       </div>
     );
   }
+
+  editHandler = (e) => {
+    if (e.target.value === "Pending") {
+      const hotel = this.state.dummyData.filter(
+        (data) => e.target.name == data.id
+      );
+      let newHotel = {};
+      hotel.map(
+        (data) =>
+          (newHotel = {
+            ...data,
+            status: "Completed",
+          })
+      );
+      axios.put(
+        `https://hotel-json-server.herokuapp.com/booking/${e.target.name}`,
+        newHotel
+      );
+    }
+  };
+
+  deleteHandler = (e) => {
+    axios.delete(
+      `https://hotel-json-server.herokuapp.com/booking/${e.target.name}`
+    );
+  };
   makeTable = (index, name, hotel, cost, start, end, status) => {
     return (
       <tr key={index}>
@@ -49,21 +91,21 @@ export default class Dashboard extends Component {
         </td>
         <td>
           <button
-            onClick={this.props.setCompleted}
+            onClick={this.editHandler}
             type="button"
             className={
               status === "Pending" ? "btn btn-warning" : "btn btn-info"
             }
-            name={hotel}
+            name={index}
             value={status}
           >
             {status}
           </button>
           <button
-            onClick={this.props.setCompleted}
+            onClick={this.deleteHandler}
             type="button"
             className="btn btn-danger ml-2"
-            name={hotel}
+            name={index}
             value="Delete"
           >
             Delete

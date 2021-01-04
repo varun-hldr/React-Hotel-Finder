@@ -1,9 +1,12 @@
 import React, { Component } from "react";
+import axios from "axios";
 import onLogin from "./onLogin";
 import onSignup from "./onSignup";
 
 export default class LoginForm extends Component {
   state = {
+    adminData: [],
+    userData: [],
     signUpformData: {
       name: "",
       email: "",
@@ -15,6 +18,19 @@ export default class LoginForm extends Component {
     },
     text: "",
     signUp: false,
+  };
+
+  componentDidMount = () => {
+    axios.get("https://hotel-json-server.herokuapp.com/users").then((respone) =>
+      this.setState({
+        userData: respone.data,
+      })
+    );
+    axios.get("https://hotel-json-server.herokuapp.com/admin").then((respone) =>
+      this.setState({
+        adminData: respone.data,
+      })
+    );
   };
 
   render() {
@@ -56,39 +72,56 @@ export default class LoginForm extends Component {
     });
   };
   onSubmit = (e) => {
-    const data = JSON.parse(localStorage.getItem("signUpData"));
-    const { onHide, onLogin, setAdminLoggin, Admin } = this.props;
-    const { signUpformData, loginformData } = this.state;
     e.preventDefault();
+    const { adminData, userData, signUpformData, loginformData } = this.state;
+    const { onHide, onLogin, setAdminLoggin, setUserData } = this.props;
     if (e.target.name === "login") {
-      if (
-        loginformData.email === Admin.email &&
-        loginformData.password === Admin.password
-      ) {
-        onHide(true);
-        onLogin(true);
-        sessionStorage.setItem("userName", JSON.stringify(loginformData));
-        setAdminLoggin(true);
-      } else {
+      adminData.map((data) => {
         if (
           data.email === loginformData.email &&
           data.password === loginformData.password
         ) {
-          sessionStorage.setItem("userName", JSON.stringify(loginformData));
+          const userData = {
+            user: "admin",
+            name: data.name,
+          };
+          setUserData(userData);
           this.setState({
             text: "",
           });
           onHide(true);
           onLogin(true);
+          setAdminLoggin(true);
         } else {
-          this.setState({
-            text: "Invalid email and password",
+          userData.map((data) => {
+            if (
+              data.email === loginformData.email &&
+              data.password === loginformData.password
+            ) {
+              const userData = {
+                user: "user",
+                name: data.name,
+              };
+              setUserData(userData);
+              this.setState({
+                text: "",
+              });
+              onHide(true);
+              onLogin(true);
+            } else {
+              this.setState({
+                text: "Invalid email and password",
+              });
+            }
           });
         }
-      }
+      });
     }
     if (e.target.name === "signup") {
-      localStorage.setItem("signUpData", JSON.stringify(signUpformData));
+      axios.post(
+        "https://hotel-json-server.herokuapp.com/users",
+        signUpformData
+      );
       this.setSignUp(false);
       onHide(true);
     }

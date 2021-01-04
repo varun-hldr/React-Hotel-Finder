@@ -1,10 +1,26 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 export default class ViewBooking extends Component {
+  state = {
+    dummyData: [],
+    isLoadded: false,
+  };
+
+  componentDidMount = () => {
+    axios
+      .get("https://hotel-json-server.herokuapp.com/booking")
+      .then((response) => {
+        this.setState({
+          dummyData: response.data,
+          isLoadded: true,
+        });
+      });
+  };
   render() {
     return (
       <div className="container-fluid">
-        {this.props.isLoggedIn ? (
+        {this.props.isLoggedIn && this.state.isLoadded ? (
           <table className="table table-hover text-uppercase">
             <thead>
               <tr>
@@ -17,9 +33,9 @@ export default class ViewBooking extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.dummyData.map((data, index) => {
+              {this.state.dummyData.map((data) => {
                 return this.makeTable(
-                  index,
+                  data.id,
                   data.userName,
                   data.hotelName,
                   data.cost,
